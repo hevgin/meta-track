@@ -9,8 +9,9 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
     "./*": "./*"
