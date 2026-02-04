@@ -18,7 +18,10 @@ export class Options implements InternalOptions {
   sdkUserUuid = '' // 用户id(sdk内部生成的id)
   debug = false // 是否开启调试模式(控制台会输出sdk动作)
   pv = {
-    core: false // 页面跳转-是否自动发送页面跳转相关数据
+    core: false, // 页面跳转-是否自动发送页面跳转相关数据
+    enableRouteName: false, // 是否自动采集路由名称
+    enablePageTitle: false, // 是否自动采集页面标题
+    enableMiniProgram: false // 是否启用小程序支持（原生小程序、Taro、mpx、uniapp等）
   }
   performance = {
     core: false, // 性能数据-是否采集静态资源、接口的相关数据
@@ -39,6 +42,12 @@ export class Options implements InternalOptions {
 
   ext = {} // 自定义全局附加参数(放在baseInfo中)
   tracesSampleRate = 1 // 抽样发送
+  
+  // 小程序相关配置
+  miniProgramPlatform = 'unknown' // 小程序平台: 'native' | 'taro' | 'mpx' | 'uniapp' | 'unknown'
+  getRouteNameFn: ((route: any) => string) | null = null // 自定义获取路由名称的函数
+  getPageTitleFn: ((vm: any) => string) | null = null // 自定义获取页面标题的函数
+  getPageUrlFn: ((vm: any) => string) | null = null // 自定义获取页面URL的函数
 
   cacheMaxLength = 5 // 上报数据最大缓存数
   cacheWatingTime = 5000 // 上报数据最大等待时间
@@ -80,7 +89,10 @@ export class Options implements InternalOptions {
 
     if (typeof pv === 'boolean') {
       _options.pv = {
-        core: pv
+        core: pv,
+        enableRouteName: false,
+        enablePageTitle: false,
+        enableMiniProgram: false
       }
     }
     if (typeof performance === 'boolean') {
@@ -155,7 +167,11 @@ function _validateInitOption(options: InitOptions) {
     beforeSendData,
     timeout,
     maxQueueLength,
-    checkRecoverInterval
+    checkRecoverInterval,
+    miniProgramPlatform,
+    getRouteNameFn,
+    getPageTitleFn,
+    getPageUrlFn
   } = options
 
   const validateFunList = []
@@ -224,7 +240,11 @@ function _validateInitOption(options: InitOptions) {
     validateOption(beforeSendData, 'beforeSendData', 'function'),
     validateOption(timeout, 'timeout', 'number'),
     validateOption(maxQueueLength, 'maxQueueLength', 'number'),
-    validateOption(checkRecoverInterval, 'checkRecoverInterval', 'number')
+    validateOption(checkRecoverInterval, 'checkRecoverInterval', 'number'),
+    validateOption(miniProgramPlatform, 'miniProgramPlatform', 'string'),
+    validateOption(getRouteNameFn, 'getRouteNameFn', 'function'),
+    validateOption(getPageTitleFn, 'getPageTitleFn', 'function'),
+    validateOption(getPageUrlFn, 'getPageUrlFn', 'function')
   ]
 
   return validateList.every(res => !!res)

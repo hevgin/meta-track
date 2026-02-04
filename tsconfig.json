@@ -18,9 +18,12 @@
     "skipDefaultLibCheck": true,
     "noUnusedLocals": true,
     "paths": {
-      "@web-tracing/core": ["./packages/core/index.ts"],
-      // "@web-tracing/core/*": ["./packages/core/*"],
-      // "@web-tracing/component": ["./packages/component/index.ts"],
+      "@meta-track/core": ["./packages/core/index.ts"],
+      "@meta-track/vue2": ["./packages/vue2/index.ts"],
+      "@meta-track/vue3": ["./packages/vue3/index.ts"],
+      "@meta-track/react": ["./packages/react/index.ts"],
+      "@meta-track/mini-program": ["./packages/mini-program/index.ts"],
+      "@meta-track/nuxt": ["./packages/nuxt/index.ts"]
     },
     "types": [
       // "vitest",

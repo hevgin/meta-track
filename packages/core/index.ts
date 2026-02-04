@@ -73,4 +73,8 @@ export {
   _options as options
 }
 export * from './src/lib/exportMethods'
+export * from './src/lib/pageinfo'
+
+// 向后兼容性：同时导出WebTracing名称
+export const WebTracing = { init, destroyTracing, ...exportMethods, options: _options }
 export default { init, destroyTracing, ...exportMethods, options: _options }

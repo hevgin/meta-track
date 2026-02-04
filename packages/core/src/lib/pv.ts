@@ -6,6 +6,7 @@ import { _global } from '../utils/global'
 import { options } from './options'
 import { eventBus } from './eventBus'
 import { EVENTTYPES, SEDNEVENTTYPES, WEBPAGELOAD } from '../common'
+import { getPageInfo } from './pageinfo'
 
 let oldURL = getLocationHref()
 
@@ -124,7 +125,7 @@ let lastSendObj: any = {}
  * 这里会发送路由跳转时间事件 以及 上一个页面停留时间事件
  */
 function sendPageView(option: AnyObj = {}) {
-  const { referer = oldURL, action, params, title } = option
+  const { referer = oldURL, action, params, title, vm, routeName, pageUrl } = option
   let _action = action
   if (!_action) {
     _action = WEBPAGELOAD[performance.navigation.type] || ''
@@ -136,15 +137,21 @@ function sendPageView(option: AnyObj = {}) {
   setTimeout(
     () => {
       oldURL = getLocationHref()
+      
+      // 获取页面信息（routeName、pageTitle等）
+      const pageInfo = (options.value.pv.enableRouteName || options.value.pv.enablePageTitle) ? getPageInfo(vm) : {}
+      
       const sendObj = {
         eventType: SEDNEVENTTYPES.PV,
         eventId: baseInfo.pageId,
-        triggerPageUrl: getLocationHref(),
+        triggerPageUrl: pageUrl || getLocationHref(),
         referer,
         params,
-        title: title || document.title,
+        title: title || pageInfo.pageTitle || document.title,
+        routeName: routeName || pageInfo.routeName,
         action: _action,
-        triggerTime: getTimestamp()
+        triggerTime: getTimestamp(),
+        ...pageInfo
       }
       sendData.emit(sendObj)
 
@@ -168,14 +175,18 @@ function sendPageView(option: AnyObj = {}) {
  * @param options 自定义配置信息
  */
 function handleSendPageView(options: AnyObj = {}, flush = false) {
+  // 获取页面信息（routeName、pageTitle等）
+  const pageInfo = (options.vm && (options.vm.pv?.enableRouteName || options.pv?.enablePageTitle)) ? getPageInfo(options.vm) : {}
+  
   sendData.emit(
     {
       referer: oldURL,
-      title: document.title,
+      title: options.title || pageInfo.pageTitle || document.title,
+      ...pageInfo,
       ...options,
       eventType: SEDNEVENTTYPES.PV,
       eventId: baseInfo.pageId,
-      triggerPageUrl: getLocationHref(),
+      triggerPageUrl: options.pageUrl || pageInfo.pageUrl || getLocationHref(),
       triggerTime: getTimestamp()
     },
     flush

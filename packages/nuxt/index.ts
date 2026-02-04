@@ -1,6 +1,6 @@
 import { addPluginTemplate, defineNuxtModule } from '@nuxt/kit'
-import * as WebTracingCore from '@web-tracing/core'
-import type { InitOptions } from '@web-tracing/core'
+import * as MetaTrackCore from '@meta-track/core'
+import type { InitOptions } from '@meta-track/core'
 
 // Polyfill requestAnimationFrame for SSR
 if (typeof global !== 'undefined' && !global.requestAnimationFrame) {
@@ -40,17 +40,17 @@ function toJS(value: any): string {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@web-tracing/nuxt',
-    configKey: 'webTracing'
+    name: '@meta-track/nuxt',
+    configKey: 'metaTrack'
   },
   defaults: {} as ModuleOptions,
   setup(options: ModuleOptions, nuxt: any) {
     addPluginTemplate({
-      filename: 'web-tracing.client.ts',
+      filename: 'meta-track.client.ts',
       getContents: () => {
         return [
           'import { defineNuxtPlugin } from "#app";',
-          'import { init } from "@web-tracing/core";',
+          'import { init } from "@meta-track/core";',
           '',
           `const options = ${toJS(options)};`,
           '',
@@ -64,27 +64,27 @@ export default defineNuxtModule<ModuleOptions>({
   }
 }) as any
 
-export * from '@web-tracing/core'
+export * from '@meta-track/core'
 
-export const init = WebTracingCore.init
-export const destroyTracing = WebTracingCore.destroyTracing
-export const options = WebTracingCore.options
-export const traceError = WebTracingCore.traceError
-export const tracePerformance = WebTracingCore.tracePerformance
-export const traceCustomEvent = WebTracingCore.traceCustomEvent
-export const tracePageView = WebTracingCore.tracePageView
-export const unzipRecordscreen = WebTracingCore.unzipRecordscreen
-export const intersectionObserver = WebTracingCore.intersectionObserver
-export const intersectionUnobserve = WebTracingCore.intersectionUnobserve
-export const intersectionDisconnect = WebTracingCore.intersectionDisconnect
-export const beforePushEventList = WebTracingCore.beforePushEventList
-export const beforeSendData = WebTracingCore.beforeSendData
-export const afterSendData = WebTracingCore.afterSendData
-export const sendLocal = WebTracingCore.sendLocal
-export const setLocalizationOverFlow = WebTracingCore.setLocalizationOverFlow
-export const getFirstScreen = WebTracingCore.getFirstScreen
-export const getIPs = WebTracingCore.getIPs
-export const getOptions = WebTracingCore.getOptions
-export const logError = WebTracingCore.logError
-export const parseError = WebTracingCore.parseError
-export const SENDID = WebTracingCore.SENDID
+export const init = MetaTrackCore.init
+export const destroyTracing = MetaTrackCore.destroyTracing
+export const options = MetaTrackCore.options
+export const traceError = MetaTrackCore.traceError
+export const tracePerformance = MetaTrackCore.tracePerformance
+export const traceCustomEvent = MetaTrackCore.traceCustomEvent
+export const tracePageView = MetaTrackCore.tracePageView
+export const unzipRecordscreen = MetaTrackCore.unzipRecordscreen
+export const intersectionObserver = MetaTrackCore.intersectionObserver
+export const intersectionUnobserve = MetaTrackCore.intersectionUnobserve
+export const intersectionDisconnect = MetaTrackCore.intersectionDisconnect
+export const beforePushEventList = MetaTrackCore.beforePushEventList
+export const beforeSendData = MetaTrackCore.beforeSendData
+export const afterSendData = MetaTrackCore.afterSendData
+export const sendLocal = MetaTrackCore.sendLocal
+export const setLocalizationOverFlow = MetaTrackCore.setLocalizationOverFlow
+export const getFirstScreen = MetaTrackCore.getFirstScreen
+export const getIPs = MetaTrackCore.getIPs
+export const getOptions = MetaTrackCore.getOptions
+export const logError = MetaTrackCore.logError
+export const parseError = MetaTrackCore.parseError
+export const SENDID = MetaTrackCore.SENDID

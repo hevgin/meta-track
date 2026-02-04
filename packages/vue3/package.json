@@ -1,7 +1,7 @@
 {
-  "name": "@web-tracing/vue3",
+  "name": "@meta-track/vue3",
   "version": "2.1.2",
-  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段 - vue3版本",
+  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段 - Vue3版本，支持自动采集routeName和pageTitle",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "jsdelivr": "./dist/index.iife.min.js",
@@ -34,7 +34,7 @@
   ],
   "peerDependencies": {},
   "dependencies": {
-    "@web-tracing/core": "workspace:*"
+    "@meta-track/core": "workspace:*"
   },
   "bugs": {
     "url": "https://github.com/M-cheng-web/web-tracing/issues"

@@ -1,7 +1,7 @@
 {
-  "name": "@web-tracing/nuxt",
+  "name": "@meta-track/nuxt",
   "version": "2.1.2",
-  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段 - nuxt3版本",
+  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段 - Nuxt3版本，支持自动采集routeName和pageTitle",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -34,7 +34,7 @@
   ],
   "peerDependencies": {},
   "dependencies": {
-    "@web-tracing/core": "workspace:*"
+    "@meta-track/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

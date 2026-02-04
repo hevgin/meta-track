@@ -1,7 +1,7 @@
 {
-  "name": "@meta-track/vue2",
+  "name": "@meta-track/mini-program",
   "version": "2.1.2",
-  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段 - Vue2版本，支持自动采集routeName和pageTitle",
+  "description": "基于 JS 跨平台插件，为小程序（微信原生、Taro、mpx、uniapp等）项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段，支持自动采集routeName和pageTitle",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "jsdelivr": "./dist/index.iife.min.js",
@@ -19,8 +19,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M-cheng-web/web-tracing.git",
-    "directory": "packages/vue2"
+    "url": "git+https://github.com/hevgin/meta-track.git",
+    "directory": "packages/mini-program"
   },
   "author": "M-cheng-web <https://github.com/M-cheng-web>",
   "keywords": [
@@ -29,6 +29,12 @@
     "异常",
     "性能采集",
     "异常采集",
+    "小程序",
+    "微信小程序",
+    "Taro",
+    "mpx",
+    "uni-app",
+    "uniapp",
     "前端埋点",
     "前端性能采集"
   ],
@@ -37,8 +43,8 @@
     "@meta-track/core": "workspace:*"
   },
   "bugs": {
-    "url": "https://github.com/M-cheng-web/web-tracing/issues"
+    "url": "https://github.com/hevgin/meta-track/issues"
   },
-  "homepage": "https://github.com/M-cheng-web/web-tracing#readme",
+  "homepage": "https://github.com/hevgin/meta-track#readme",
   "unpkg": "./dist/index.iife.min.js"
 }

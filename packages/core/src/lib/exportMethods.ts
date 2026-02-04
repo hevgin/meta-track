@@ -18,6 +18,14 @@ import { sendData } from './sendData'
 import { SDK_LOCAL_KEY } from '../common/config'
 import { LocalStorageUtil } from '../utils/localStorage'
 import { unzip } from '../lib/recordscreen'
+import { 
+  getPageInfo, 
+  getRouteName, 
+  getPageTitle, 
+  getPageUrl,
+  detectMiniProgramPlatform,
+  isMiniProgramEnvironment
+} from './pageinfo'
 
 /**
  * 解压错误录屏数据
@@ -205,4 +213,58 @@ export function setLocalizationOverFlow(overFlowFun: VoidFun): void {
  */
 export function getOptions(): InternalOptions {
   return deepCopy(options.value)
+}
+
+/**
+ * 获取页面信息（routeName、pageTitle、pageUrl）
+ * @param vm 组件实例或虚拟机，用于Vue等框架
+ */
+export function getPageInfoExport(vm?: any) {
+  if (!validateMethods('getPageInfo')) return
+
+  return getPageInfo(vm)
+}
+
+/**
+ * 获取路由名称
+ * @param vm 组件实例或虚拟机
+ */
+export function getRouteNameExport(vm?: any) {
+  if (!validateMethods('getRouteName')) return
+
+  return getRouteName(vm)
+}
+
+/**
+ * 获取页面标题
+ * @param vm 组件实例或虚拟机
+ */
+export function getPageTitleExport(vm?: any) {
+  if (!validateMethods('getPageTitle')) return
+
+  return getPageTitle(vm)
+}
+
+/**
+ * 获取页面URL
+ * @param vm 组件实例或虚拟机
+ */
+export function getPageUrlExport(vm?: any) {
+  if (!validateMethods('getPageUrl')) return
+
+  return getPageUrl(vm)
+}
+
+/**
+ * 检测当前运行的小程序平台
+ */
+export function detectMiniProgramPlatformExport(): string {
+  return detectMiniProgramPlatform()
+}
+
+/**
+ * 判断是否在小程序环境中运行
+ */
+export function isMiniProgramEnvironmentExport(): boolean {
+  return isMiniProgramEnvironment()
 }

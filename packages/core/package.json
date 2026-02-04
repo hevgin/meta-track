@@ -1,7 +1,7 @@
 {
-  "name": "@web-tracing/core",
+  "name": "@meta-track/core",
   "version": "2.1.2",
-  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段",
+  "description": "基于 JS 跨平台插件，为前端项目提供【 埋点、行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段，支持Web、Vue2/3、React及微信小程序",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "jsdelivr": "./dist/index.iife.min.js",
