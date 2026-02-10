@@ -81,16 +81,23 @@ export class RecordScreen {
 }
 
 export function initRecordScreen() {
-  watch(options, (newValue, oldValue) => {
-    if (newValue.recordScreen === oldValue.recordScreen) return
+  // 监听 options.value.recordScreen 的变化
+  watch(options, (newValue: any, oldValue: any) => {
+    // 比较 recordScreen 属性是否真的改变了
+    const newRecordScreen = newValue?.recordScreen ?? false
+    const oldRecordScreen = oldValue?.recordScreen ?? false
+    
+    if (newRecordScreen === oldRecordScreen) return
 
-    if (newValue.recordScreen) recordScreen = new RecordScreen()
-    else {
+    if (newRecordScreen) {
+      recordScreen = new RecordScreen()
+    } else {
       recordScreen?.close()
       recordScreen = undefined
     }
   })
 
+  // 初始化时，根据 options.value.recordScreen 的值来决定是否启动录屏
   recordScreen = options.value.recordScreen ? new RecordScreen() : undefined
 }
 

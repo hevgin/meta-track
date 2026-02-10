@@ -75,8 +75,40 @@ export class Watcher {
     this.proxy.dirty = false // 设定不为脏数据
     if (this.getter) {
       this.proxy.value = this.getter() // 设定值(在这个过程中就给上了依赖)
+      
+      // 优化：对于对象类型的值，深度遍历以收集所有嵌套属性的依赖
+      // 这样能确保对象内部属性的改变也能被 watch 捕获
+      if (typeof this.proxy.value === 'object' && this.proxy.value !== null) {
+        this.deepTraverse(this.proxy.value)
+      }
     }
     popTarget() // 取出上面放入 Dep.target 的上下文
+  }
+
+  /**
+   * 深度遍历对象属性以收集依赖
+   * 原理：通过访问所有属性，触发它们的 getter，进而触发 Dep.addSub()
+   */
+  private deepTraverse(obj: any, visited = new WeakSet()): void {
+    if (obj === null || typeof obj !== 'object') return
+    if (visited.has(obj)) return // 防止循环引用
+    
+    visited.add(obj)
+    
+    try {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          const value = obj[key]
+          // 递归遍历嵌套对象
+          if (typeof value === 'object' && value !== null && !visited.has(value)) {
+            this.deepTraverse(value, visited)
+          }
+        }
+      }
+    } catch (error) {
+      // 某些对象可能不允许遍历，直接忽略
+      // do nothing
+    }
   }
   /**
    * 计算属性专用 - 添加依赖
